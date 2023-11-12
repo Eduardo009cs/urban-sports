@@ -15,14 +15,14 @@ def insertIntoDimensionJugadaEntrenamiento(dataArray,datetime):
         print("INFO - Insertando registros en la base de datos")
 
         date = datetime.split(" ")[0]
-        tipoJugada = "Piston 1"
+        
 
         for data in dataArray:
             evalData = data[1]
             if str(data[0]) != "nan":
                 name = data[0].split(" ")
                 query = "{CALL insertIntoDimensionJugada (?,?,?,?,?,?,?,?,?,?)}"
-                parameters = (evalData[0],evalData[1],evalData[2],evalData[3],0,name[0],name[1],"juego",date,tipoJugada)
+                parameters = (evalData[0],evalData[1],evalData[2],evalData[3],0,name[0],name[1],"Entrenamiento",date,"Entrenamiento")
                 db.queryRunner(query,parameters)
         
         print("INFO - Datos insertados correctamente")
@@ -150,19 +150,20 @@ def insertIntoDimensionJugadaPartido(dataArray,date):
         for data in dataArray:
             if len(data) > 1:
                 name = data[0].split(" ")[0]
+                apellido = data[0].split(" ")[1]
                 for d in data:
                     if len(d) <= 3:
                         eval = d[2]
                         clip = d[0]
                         tipoJugada = d[1]
                         query = "{CALL insertIntoDimensionJugada (?,?,?,?,?,?,?,?,?,?)}"
-                        parameters = (eval[0],eval[1],eval[2],eval[3],clip,name,"B","juego",date,str(tipoJugada))
+                        parameters = (eval[0],eval[1],eval[2],eval[3],clip,name,apellido,"juego",date,str(tipoJugada))
                         db.queryRunner(query,parameters)
         print("INFO - Datos insertados correctamente")
     except:
         print("ERROR - Ocurrio algún error al generar la consulta")
 
-def inserIntoHechosBiometria(dataArray,date,idSensor,nombre,apellido):
+def inserIntoHechosBiometria(dataArray,date,modelo,nombre,apellido):
     #Parametros:
     # - dataArray -> Array con la informacion que se va a insertar en la base
     # - date -> Fecha de la evaluación (Formatos: yyyy-MM-dd HH:mm:ss ó yyyy-MM-dd)
@@ -179,7 +180,7 @@ def inserIntoHechosBiometria(dataArray,date,idSensor,nombre,apellido):
         print("INFO - Insertando registros en la base de datos")
         for i in range(0,len(dataArray)):
             query = "{CALL insertIntoHechosBiometria (?,?,?,?,?,?)}"
-            parameters = (nombre,apellido,date,idSensor,dataArray[0][i],dataArray[1][i])
+            parameters = (date,nombre,apellido,modelo,dataArray[0][i],dataArray[1][i]," ")
             db.queryRunner(query,parameters)
         print("INFO - Datos insertados correctamente")
     except:

@@ -251,7 +251,7 @@ def collectorBiometricData(filePath):
 
     #Funcion:Extraer los datos biometricos de los entrenamietnos
 
-    #Archivo: nombre_apellido_posicion_fecha(yyyy-MM-dd)_idSensor.csv
+    #Archivo: nombre_apellido_fecha(yyyy-MM-dd)_modelosensor.csv
     error = False
     try: 
         dataframe = pd.read_csv(filePath)

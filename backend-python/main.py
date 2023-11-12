@@ -20,7 +20,7 @@ try:
             fecha = fileData.split("_")[2]
             rival = fileData.split("_")[3]
             insert.insertIntoDimensionTiempo(fecha)
-            insert.insertIntoHechosPartido(fecha,"Partido","BB","AB","Estadio Wilfrido",20,13)  
+            insert.insertIntoHechosPartido(fecha,"Partido","BB",rival,"Estadio Wilfrido",20,13)  
             insert.insertIntoDimensionJugadaPartido(dataArray,fecha)
             print("INFO - Terminando inserción de datos dentro de la base")
         elif fileName.find("entrenamiento") > 0:
@@ -63,13 +63,12 @@ try:
             fileData = fileName.split(".")[0]
             nombre = fileData.split("_")[1]
             apellido = fileData.split("_")[2]
-            posicion = fileData.split("_")[3]
-            date = fileData.split("_")[4]
-            idSensor = fileData.split("_")[5]
+            date = fileData.split("_")[3]
+            modelo = fileData.split("_")[4]
 
-            #insert.insertIntoDimensionTiempo(date)
-            #insert.insertIntoHechosPartido(date,"ENTRENAMIENTO","BB","BB","Estadio Wilfrido",0,0)
-            insert.inserIntoHechosBiometria(dataArray,date,idSensor,nombre,apellido)
+            insert.insertIntoDimensionTiempo(date)
+            insert.insertIntoHechosPartido(date,"ENTRENAMIENTO","BB","BB","Estadio Wilfrido",0,0)
+            insert.inserIntoHechosBiometria(dataArray,date,modelo,nombre,apellido)
             print("INFO - Terminando inserción de datos dentro de la base")
         else:
             print("WARNING - Ocurrio un problema al abrir: " + fileName + ". Verifique el nombre del archivo sea valido")
